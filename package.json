@@ -1,0 +1,16 @@
+{
+  "name": "cgt-fercsup-cnam-discord-bot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "keywords": [],
+  "author": "ZeBlackVegetable",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^13.17.1",
+    "perf_hooks": ""
+  },
+  "description": ""
+}
