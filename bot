@@ -1,0 +1,37 @@
+#!/bin/bash
+
+function init_archi(){
+  touch index.js
+  npm init --yes
+  touch Dockerfile
+  npm install discord.js --save
+  touch settings.json
+  }
+
+AWK_REMOVE_DUPS='BEGIN{a=""} {if(a!=$0){print; a = $0}}'
+
+case $1 in
+  "bundle"  ) git bundle create CGT.bundle master
+              ;;
+  "sc"      ) curl http://jeanferdysusini.free.fr/SugarCubes_min.js > SugarCubes_min.js
+              ;;
+  "init"    ) init_archi
+              ;;
+  "build"   ) docker build -t jfs_bot .
+              ;;
+  "logs"    ) docker logs CGT_BOT
+              ;;
+  "run"     ) docker run --name CGT_BOT -d jfs_bot
+              ;;
+  "members" ) grep '".*"$' roles.json|sed 's/^[ ,\t]*"/"/' |sort |awk "$AWK_REMOVE_DUPS" > membersNames.json
+              ;;
+  *         ) echo 'Usage : bot [command]' ; echo "where commands are :" ;
+              echo -e '  - sc\tto upgrade SugarCubes version' ;
+              echo -e '  - init\tto setup the docker bot source directory' ;
+              echo -e '  - build\tto build the docker image' ;
+              echo -e '  - logs\tto display logs of running docker image' ;
+              echo -e '  - run\t\tto run the docker image' ;
+              ;;
+esac
+
+#EOF
